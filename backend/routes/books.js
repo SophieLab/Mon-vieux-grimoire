@@ -1,8 +1,9 @@
 const express = require('express');
+const auth = require('../middlewares/auth');
+const multer = require('../middlewares/multer-config');
+const sharp = require('../middlewares/sharp-config');
 const router = express.Router();
-const auth = require('../middleware/auth');
-const multer = require('../middleware/multer-config');
-const stuffCtrl = require('../controllers/stuff');
+const booksCtrl = require('../controllers/booksController');
 
 router.get('/', auth, stuffCtrl.getAllThings);
 router.post('/', auth, multer, stuffCtrl.createThing);
