@@ -1,9 +1,12 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const Thing = require('./models/thing'); // Importer le modèle Thing
 
-// Créer l'application Express
+const booksRoutes = require('./routes/books');
+const userRoutes = require('./routes/user');
 const app = express();
+
+require("dotenv").config();
 
 // Connexion à MongoDB (remplacer <PASSWORD> par votre mot de passe)
 mongoose.connect('mongodb+srv://jimbob:<PASSWORD>@cluster0-pme76.mongodb.net/test?retryWrites=true&w=majority', {
@@ -13,29 +16,37 @@ mongoose.connect('mongodb+srv://jimbob:<PASSWORD>@cluster0-pme76.mongodb.net/tes
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
-// Middleware pour parser les requêtes avec body en JSON
-app.use(express.json());
+//-On crée le middleware pour gérer les en-têtes CORS
 
-
-// Route GET pour récupérer tous les objets de la base de données
-app.use('/api/stuff', (req, res, next) => {
-  Thing.find()
-    .then(things => res.status(200).json(things))
-    .catch(error => res.status(400).json({ error }));
-});
-
-// Démarrer le serveur
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Serveur en cours d'exécution sur le port ${PORT}`);
-});
-// Middleware pour configurer les headers CORS
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
   next();
 });
-app.use(bodyParser.json());
+app.use('/api/auth', userRoutes);
+app.use('/api/books', bookRoutes);
+app.use('/images', express.static('images'));
 
-module.exports= app;
+//-Gestion de l'erreur liée aux mauvais fichiers envoyés
+function errorHandler(error, req, res, next) {
+  if (error.cause == "Invalid Data") {
+    return res.status(400).json({ error: error.message });
+  }
+  res.status(500).json({ error });
+}
+
+app.use(errorHandler)
+
+function endpointNotFoundHandler ( req, res ) {
+  if (res.headersSent) {
+    console.log('Réponse déjà envoyée');
+    return
+  }
+  res.status(404).json({ message: "Le end point demandé n'existe pas."})
+};
+
+app.use(endpointNotFoundHandler);
+
+module.exports = app;
+
