@@ -1,17 +1,19 @@
+const http = require('http');
+const app = require('./app');
+
 // Fonction pour normaliser le port
 const normalizePort = val => {
-  const port = parseInt(val, 10);
+  const port = parseInt(val, 10); // Convertit la valeur en entier
 
   if (isNaN(port)) {
-    return val; // Si ce n'est pas un nombre, retourne la valeur d'origine
+    return val; 
   }
   if (port >= 0) {
-    return port; // Si le port est positif ou zéro, retourne le port
+    return port;
   }
   return false;
 };
 
-// Normalise le port à partir des variables d'environnement ou définit le port par défaut à 3000
 const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
@@ -46,6 +48,3 @@ server.on('listening', () => {
   const bind = typeof address === 'string' ? 'pipe ' + address : 'port ' + port; // Définit l'adresse de liaison
   console.log('Listening on ' + bind); // Affiche un message lorsque le serveur commence à écouter
 });
-
-// Démarre le serveur pour écouter sur le port défini
-server.listen(port);
