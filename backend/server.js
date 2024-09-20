@@ -48,3 +48,4 @@ server.on('listening', () => {
   const bind = typeof address === 'string' ? 'pipe ' + address : 'port ' + port; // Définit l'adresse de liaison
   console.log('Listening on ' + bind); // Affiche un message lorsque le serveur commence à écouter
 });
+server.listen(port);
