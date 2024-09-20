@@ -7,19 +7,21 @@ require('dotenv').config();
 
 const app = express();
 
+// Connexion à la base de données MongoDB
 mongoose.connect(
-  process.env.MONGODB_URI,
+  process.env.MONGODB_URI, // URI de la base de données MongoDB depuis les variables d'environnement
 )
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
-app.use(express.json());
+app.use(express.json()); // Middleware pour parser les requêtes JSON
 
+// Middleware pour configurer les en-têtes CORS
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
-  next();
+  res.setHeader('Access-Control-Allow-Origin', '*'); // Permet toutes les origines
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization'); // Autorise certains en-têtes
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS'); // Autorise certaines méthodes HTTP
+  next(); // Passe au middleware suivant
 });
 
 app.use('/api/book', bookRoutes);
