@@ -27,7 +27,7 @@ app.use((req, res, next) => {
   next(); // Passe au middleware suivant
 });
 
-app.use('/api/book', bookRoutes);
+app.use('/api/books', bookRoutes);
 app.use('/api/auth', userRoutes);
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
