@@ -5,7 +5,6 @@ const bcrypt = require('bcrypt');
 // Fonction pour l'inscription d'un nouvel utilisateur
 exports.signup = (req, res, next) => {
     // Hachage du mot de passe avant de le sauvegarder
-    console.log(req.body)
     bcrypt.hash(req.body.password, 10) // Hache le mot de passe avec un coût de 10
         .then(hash => {
             const user = new User({
