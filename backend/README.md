@@ -12,31 +12,19 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur 
 
 Instructions pour installer et configurer le projet :
 
-```bash
-# Clonez ce dépôt
-git clone https://github.com/SophieLab/mon-vieux-grimoire.git
-
 # Allez dans le répertoire du projet
 cd vieux-grimoire
 
 # Installez les dépendances
 npm install
-```
 
-## Utilisation
-
-Pour utiliser votre projet après l'installation.
-
-```bash
 # Pour démarrer le projet
 npm start
-```
 
 ## Front-end
 
 Pour ajouter et installer la partie Front-end
 
-```bash
 # Clonez ce dépôt
 https://github.com/OpenClassrooms-Student-Center/P7-Dev-Web-livres.git
 

@@ -1,8 +1,7 @@
-// Étape 1 : Importation des modules nécessaires
 const http = require('http'); // Module pour créer un serveur HTTP
 const app = require('./app'); // Application Express importée depuis le fichier app.js
 
-// Étape 2 : Fonction pour normaliser le port
+// Fonction pour normaliser le port
 const normalizePort = val => {
   const port = parseInt(val, 10); // Convertit la valeur fournie en entier (base 10)
 
@@ -15,11 +14,11 @@ const normalizePort = val => {
   return false; // Renvoie false pour les valeurs invalides
 };
 
-// Étape 3 : Normalisation du port
+//Normalisation du port
 const port = normalizePort(process.env.PORT || '4000'); // Définit le port à utiliser (ou le port par défaut 4000)
 app.set('port', port); // Configure l'application Express pour utiliser le port spécifié
 
-// Étape 4 : Gestionnaire d'erreurs pour le serveur
+//Gestionnaire d'erreurs pour le serveur
 const errorHandler = error => {
   if (error.syscall !== 'listen') {
     throw error; // Relance l'erreur si elle ne concerne pas l'écoute
@@ -40,10 +39,10 @@ const errorHandler = error => {
   }
 };
 
-// Étape 5 : Création d'un serveur HTTP en utilisant l'application Express
+//  Création d'un serveur HTTP en utilisant l'application Express
 const server = http.createServer(app); // Crée un serveur HTTP qui utilise l'application Express
 
-// Étape 6 : Ajout de gestionnaires d'événements pour le serveur
+// Ajout de gestionnaires d'événements pour le serveur
 server.on('error', errorHandler); // Gère les erreurs du serveur en utilisant le gestionnaire d'erreurs défini
 server.on('listening', () => {
   const address = server.address(); // Récupère l'adresse du serveur
@@ -51,5 +50,5 @@ server.on('listening', () => {
   console.log('Listening on ' + bind); // Affiche un message lorsque le serveur commence à écouter
 });
 
-// Étape 7 : Démarrage du serveur
-server.listen(port); // Le serveur écoute sur le port spécifié
+// Démarrage du serveur
+server.listen(port);

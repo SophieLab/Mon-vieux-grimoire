@@ -1,7 +1,6 @@
-const express = require('express'); // Importation du module express pour créer des routes
-const router = express.Router(); // Création d'un routeur pour définir les endpoints
-
-const userCtrl = require('../controllers/user'); // Importation du contrôleur d'utilisateurs
+const express = require('express');
+const router = express.Router();
+const userCtrl = require('../controllers/user'); 
 
 // Définition des routes pour les utilisateurs
 router.post('/signup', userCtrl.signup); // Route pour l'inscription d'un nouvel utilisateur
