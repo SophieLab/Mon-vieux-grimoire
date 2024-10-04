@@ -36,9 +36,8 @@ exports.createBook = (req, res, next) => {
   const book = new Book({
     ...bookObject,
     userId: req.auth.userId, // Association du livre à l'utilisateur authentifié
-    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` // Définition de l'URL de l'image
+    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`, // Définition de l'URL de l'image
   });
-
   //Sauvegarde du livre dans la base de données
   book.save()
     .then(() => res.status(201).json({ message: 'Livre enregistré !' })) // Envoi d'une confirmation avec le statut 201

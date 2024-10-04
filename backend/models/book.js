@@ -14,7 +14,8 @@ const bookSchema = mongoose.Schema({
   imageUrl: { type: String, required: true },
   year: { type: Number, required: true },
   genre: { type: String, required: true },
-  ratings: [ratingSchema], // Note moyenne, optionnelle, calculée à partir des notations
+  ratings: [ratingSchema], // Liste des notations
+  averageRating: { type: Number, default: 0 }, // Note moyenne, par défaut à 0
 });
 
 // Exportation du modèle 'Book' basé sur le schéma bookSchema
